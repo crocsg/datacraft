@@ -11,7 +11,7 @@ stl-to-voxel : https://github.com/cpederkoff/stl-to-voxel
 
 ## Mods pour minetest
 
-Une etude des possibilités de visualisation de données avec le jeu vidéo minetest
+Une etude des possibilités de visualisation de données avec le jeu vidéo minetest en collaboration avec 3HitCombo
 
 ### rennesdatacraft
 
