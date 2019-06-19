@@ -131,18 +131,6 @@ if __name__ == "__main__":
         center_commune = ((int((t[0] / mapscale) - cx), int((t[1] / mapscale) - cy)))
         print ("center commune : {0}".format (center_commune))
 
-        # minetest_util.lineblock(db, center_commune[0] - 50, center_commune[1] - 50, floor_level + 1,
-        #                         center_commune[0] + 50, center_commune[1] - 50, floor_level + 1, minetest_util.wrednode)
-        # minetest_util.lineblock(db, center_commune[0] + 50, center_commune[1] - 50, floor_level + 1,
-        #                         center_commune[0] + 50, center_commune[1] + 50, floor_level + 1, minetest_util.wrednode)
-        # minetest_util.lineblock(db, center_commune[0] + 50, center_commune[1] + 50, floor_level + 1,
-        #                         center_commune[0] - 50, center_commune[1] + 50, floor_level + 1, minetest_util.wrednode)
-        # minetest_util.lineblock(db, center_commune[0] - 50, center_commune[1] + 50, floor_level + 1,
-        #                         center_commune[0] - 50, center_commune[1] - 50, floor_level + 1, minetest_util.wrednode)
-        #
-        # for z in range (floor_level + 1, floor_level + 10):
-        #     minetest_util.setblock(db, Pos (center_commune[0], z, center_commune[1]), minetest_util.wgreennode)
-
         for c in feature.geometry.coordinates:
             poly = []
             for e in c:

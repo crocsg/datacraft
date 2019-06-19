@@ -56,12 +56,7 @@ if __name__ == "__main__":
     offset[1] = - (boundingbox[1] / 2)
     offset[2] = floorlevel
     print (offset)
-    #for y in range(boundingbox[1]):
-    #    for z in range(boundingbox[2]):
-    #        for x in range(boundingbox[0]):
-    #            if vol[z][x][y]:
-    #                minetest_util.setblock(db, Pos(x, z + 10, y), minetest_util.claynode)
-
+    
     db.save ()
 
     # center the map with 35238.geojson
