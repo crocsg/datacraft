@@ -17,7 +17,7 @@ Une etude des possibilités de visualisation de données avec le jeu vidéo mine
 
 Un mod pour minetest qui permet de lire les statistiques de depôt de matière dans les décheteries de Rennes Metropole  
 Ce mod recupère les données depuis le site https://data.rennesmetropole.fr et visualise les données de déchêts de l'ensemble des déchetteries de la ville de Rennes  
-![Capture d'écran]./images/screen0.png
+![Capture d'écran](./images/screen0.png)
 
 
 ### visite
