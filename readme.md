@@ -52,6 +52,8 @@ map path: chemin de la carte minetest (base de donnée sqlite)
 stl path: chemin du fichier objet 3d utilisé pour la representation du taux d'occupation  
 floor_level : altitude de la representation (la position des parcs est lue depuis l'API)  
 
+![Capture d'écran](./images/screen5.png)
+
 ###  script build_bati_goutiere_level.py
 Construit une carte representant le contours des batiments. La donnée de hauteur de goutiere est utilisée pour fixer la hauteur des batiments sur la carte  
 build_bati_goutiere_level.py <map path> <geojson path> floor_level[-30000,30000] floor [0/1] prune[0/1]")  
@@ -61,7 +63,11 @@ floor_level: altitude de creation du contour de la commune. Utile pour les monde
 floor: Option pout générer un sol sous le contour. 0 pas de sol. 1 cretion du sol (attention c'est long, compter 8 heures sur un Core I7 3Ghz)  
 prune: Option qui permet d'effectuer tout le traitement sans modifier la carte. Utile pour tester l'interpretation du fichier geojson  
 
+![Capture d'écran](./images/screen4.png)
+
 ### script create_bati.py
 Crée une map a l'altitude 0 qui represente les contours des batiments d'un fichier geojson https://data.rennesmetropole.fr/explore/dataset/referentiel-batiment/information/  
 le fichier de données en entré est nommé referentiel-batiment_35238.geojson  
+
+![Capture d'écran](./images/screen1.png)
 
