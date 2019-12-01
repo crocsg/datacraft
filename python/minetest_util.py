@@ -72,9 +72,9 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     for i in range(len(rre)):
         point.append((rre[i],cce[i]))
 
-    print (point)
+    #print (point)
     for pt in point:
-        setblock(dbmap, Pos(pt[0], z_pos, pt[1]), node)
+        setblock(dbmap, Pos(pt[1], z_pos, pt[0]), node)
 
 def mark_totem(dbmap, posx, posy, posz, width, height, rate, node, nodeempty):
     for y in range(posy, posy + height + 1):
