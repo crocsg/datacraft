@@ -1,7 +1,7 @@
 #! python
-# DataCraft Rennes (c) by S GODIN and 3HitCombo
+# DataCraft Rennes  by S GODIN and 3HitCombo
+# CC-BY-SA 4.0
 #
-# Dirt Visualisation Rennes is licensed under a
 # Creative Commons Attribution-ShareAlike 4.0 International License.
 # You should have received a copy of the license along with this
 # work. If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
@@ -11,9 +11,11 @@ import os
 import libminetest.map
 import libminetest.utils
 import libminetest.errors
+import numpy as np
 from libminetest.nodes import Node
 from libminetest.utils import Pos
 from bresenham import bresenham
+from skimage.draw import polygon, polygon_perimeter
 
 
 def setblock(dbmap: libminetest.map.MapInterface, nodepos: Pos, node: Node):
@@ -54,6 +56,25 @@ def lineblock(dbmap: libminetest.map.MapInterface, from_x: object, from_y: objec
     for pt in point:
         setblock(dbmap, Pos(pt[0], from_z, pt[1]), node)
 
+def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node):
+    r = np.array([p[1] for p in poly])
+
+    c = np.array([p[0] for p in poly])
+
+    #remplissage
+    rr,cc = polygon (r,c)
+    #contour externe
+    rre, cce = polygon_perimeter(r, c)
+
+    point = []
+    for i in range(len(rr)):
+        point.append((rr[i],cc[i]))
+    for i in range(len(rre)):
+        point.append((rre[i],cce[i]))
+
+    print (point)
+    for pt in point:
+        setblock(dbmap, Pos(pt[0], z_pos, pt[1]), node)
 
 def mark_totem(dbmap, posx, posy, posz, width, height, rate, node, nodeempty):
     for y in range(posy, posy + height + 1):
@@ -107,5 +128,10 @@ if '__main__' == __name__:
     for ix in range(-10, 10):
         for iz in range(-10, 10):
             setblock(db, Pos (ix, 0, iz), claynode)
+
+    poly = [(0,0,0), (100,0,0),(100,100,0),(0,100,0),(0,0,0)]
+    polygon_filled_block (db, poly, -25, claynode)
+    poly = [(0, 50), (50, 0), (50, 50), (0, 50), (50, 0)]
+    polygon_filled_block(db, poly, -24, wgreennode)
 
     db.save()
