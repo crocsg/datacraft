@@ -145,6 +145,9 @@ if __name__ == "__main__":
                     maxx = max (maxx, int(a[0]) - cx)
                     maxy = max (maxy, int(a[1]) - cy)
 
+                #close polygon
+                poly.append (poly[0])
+
                 if prune == 0:
                     for alt in range (floor_level + 1, floor_level + 1 + hfaitage + 1):
                         if fill == 0:
