@@ -57,9 +57,9 @@ def lineblock(dbmap: libminetest.map.MapInterface, from_x: object, from_y: objec
         setblock(dbmap, Pos(pt[0], from_z, pt[1]), node)
 
 def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node):
-    r = np.array([p[1] for p in poly])
+    r = np.array([p[1]+100000 for p in poly])
 
-    c = np.array([p[0] for p in poly])
+    c = np.array([p[0]+100000 for p in poly])
 
     #remplissage
     rr,cc = polygon (r,c)
@@ -73,9 +73,9 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
 
     point = []
     for i in range(len(rr)):
-        point.append((rr[i],cc[i]))
+        point.append((rr[i]-100000,cc[i]-100000))
     for i in range(len(rre)):
-        point.append((rre[i],cce[i]))
+        point.append((rre[i]-100000,cce[i]-100000))
 
     #print (point)
     for pt in point:
