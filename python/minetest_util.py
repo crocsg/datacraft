@@ -65,6 +65,7 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     rr,cc = polygon (r,c)
     #contour externe
     rre, cce = polygon_perimeter(r, c)
+    print(poly)
     if len(rr) == 0:
         print (poly)
         print (rr)
