@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
             #print (poly)
             if prune == 0:
-                minetest_util.draw_polyline_block (db, poly, floor_level+1, wgreennode, 5)
+                minetest_util.draw_polyline_block2 (db, poly, floor_level+1, wgreennode, 5)
 
             #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
             print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))

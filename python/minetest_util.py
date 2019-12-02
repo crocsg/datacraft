@@ -47,6 +47,7 @@ def buildline(x1,y1,x2,y2,thick=1):
     yy[0] = int(y1 + thick*np.sin(angle+np.pi/2))
     xx[1] = int(x1 + thick*np.cos(angle-np.pi/2))
     yy[1] = int(y1 + thick*np.sin(angle-np.pi/2))
+
     xx[2] = int(x2 + thick*np.cos(angle-np.pi/2))
     yy[2] = int(y2 + thick*np.sin(angle-np.pi/2))
     xx[3] = int(x2 + thick*np.cos(angle+np.pi/2))
@@ -124,6 +125,36 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
 def draw_polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node, thick=1 ):
     for idx in range(len(poly) - 1):
         draw_line_block(dbmap, poly[idx][0], poly[idx][1], z_pos, poly[idx + 1][0], poly[idx + 1][1], node, thick)
+
+def draw_polyline_block2 (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node, thick=1 ):
+    right = []
+    left = []
+    for idx in range(len(poly) - 1):
+        angle = np.arctan2(poly[idx + 1][1] - poly[idx][1], poly[idx+1][0] - poly[idx][0])
+        right.append ( (int(poly[idx][0] + thick * np.cos(angle + np.pi / 2)), int(poly[idx][1] + thick * np.sin(angle + np.pi / 2))) )
+        right.append((int(poly[idx + 1][0] + thick * np.cos(angle + np.pi / 2)), int(poly[idx + 1][1] + thick * np.sin(angle + np.pi / 2))))
+        left.append ( (int(poly[idx][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx][1] + thick * np.sin(angle - np.pi / 2))) )
+        left.append ( (int(poly[idx+1][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx+1][1] + thick * np.sin(angle - np.pi / 2))) )
+
+    point = right + left
+    point.append (right[0])
+
+
+    x = np.array (p[0] + 200000 for p in point)
+    y = np.array (p[1] + 200000 for p in point)
+
+    xx,yy = polygon(x,y)
+    xxe,yye = polygon_perimeter(x,y)
+
+    polypoint = []
+    for i in range(len(xx)):
+        polypoint.append((xx[i] - 200000, yy[i] - 200000))
+    for i in range(len(xxe)):
+        polypoint.append((xxe[i] - 200000, yye[i] - 200000))
+
+    for pt in polypoint:
+        setblock(dbmap, Pos(pt[0], z_pos, pt[1]), node)
+
 
 def polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node ):
     for idx in range(len(poly) - 1):

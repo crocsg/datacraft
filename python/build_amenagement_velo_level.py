@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
             #print (poly)
             if prune == 0:
-                minetest_util.draw_polyline_block(db, poly, floor_level + 1, wbluenode, 3)
+                minetest_util.draw_polyline_block2(db, poly, floor_level + 1, wbluenode, 3)
 
         if feature.geometry.type == "MultiLineString":
             for d in feature.geometry.coordinates:
