@@ -135,8 +135,8 @@ def draw_polyline_block2 (dbmap: libminetest.map.MapInterface, poly: object, z_p
         right.append((int(poly[idx + 1][0] + thick * np.cos(angle + np.pi / 2)), int(poly[idx + 1][1] + thick * np.sin(angle + np.pi / 2))))
         left.append ( (int(poly[idx][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx][1] + thick * np.sin(angle - np.pi / 2))) )
         left.append ( (int(poly[idx+1][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx+1][1] + thick * np.sin(angle - np.pi / 2))) )
-
-    point = right + left.reverse()
+    left.reverse ()
+    point = right + left
     point.append (right[0])
 
     print (point)
