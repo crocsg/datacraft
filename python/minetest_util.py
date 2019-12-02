@@ -78,8 +78,8 @@ def draw_line_block (dbmap: libminetest.map.MapInterface, from_x: object, from_y
     """
     u,v = buildline(from_x, from_y, to_x, to_y, thick)
     point = []
-    for idx in range (u):
-        point.append(u[idx], v[idx])
+    for idx in range (len(u)):
+        point.append( (u[idx], v[idx]) )
 
     for pt in point:
         setblock(dbmap, Pos(pt[0], from_z, pt[1]), node)
@@ -175,11 +175,13 @@ if '__main__' == __name__:
     db = libminetest.map.MapInterface(mappath)
     db.set_maxcachesize(2048)
 
-    lineblock(db, 10, 10, 20, -10, 10, 20, dirtnode)
-    lineblock(db, -10, 10, 20, -10, -10, 20, dirtnode)
-    lineblock(db, -10, -10, 20, 10, -10, 20, dirtnode)
-    lineblock(db, 10, -10, 20, 10, 10, 20, dirtnode)
-    lineblock(db, 10, 10, 20, -10, -10, 20, defnode)
+    lineblock(db, 10, 10, 20, -10, 10, dirtnode)
+    lineblock(db, -10, 10, 20, -10, -10, dirtnode)
+    lineblock(db, -10, -10, 20, 10, -10, dirtnode)
+    lineblock(db, 10, -10, 20, 10, 10, dirtnode)
+    lineblock(db, 10, 10, 20, -10, -10, defnode)
+
+    draw_line_block(db, 10, 10, 20, -10, -10, defnode, 1)
 
     for ix in range(-10, 10):
         for iz in range(-10, 10):
