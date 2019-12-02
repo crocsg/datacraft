@@ -67,10 +67,13 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     rre, cce = polygon_perimeter(r, c)
     print(poly)
     if len(rr) == 0:
-        print (poly)
-        print (rr)
-        print (cc)
-        exit (0)
+        if (np.minimum(rr) == np.maximum (rr) or np.minimum(cc) == np.maximum(cc)):
+            print ("empty contour")
+        else:
+            print (poly)
+            print (rr)
+            print (cc)
+            exit (0)
 
     point = []
     for i in range(len(rr)):
@@ -136,8 +139,11 @@ if '__main__' == __name__:
             setblock(db, Pos (ix, 0, iz), claynode)
 
     poly = [(0,0,0), (100,0,0),(100,100,0),(0,100,0),(0,0,0)]
-    polygon_filled_block (db, poly, -25, claynode)
-    poly = [(0, 50), (50, 0), (50, 50), (0, 50), (50, 0)]
-    polygon_filled_block(db, poly, -24, wgreennode)
 
+    polygon_filled_block (db, poly, -25, claynode)
+    poly = [(0, 50), (50, 0), (50, 50), (0, 50)]
+    polygon_filled_block(db, poly, -24, wgreennode)
+    poly = [(0, 50), (50, 50), (50, 0), (0, 50)]
+
+    polygon_filled_block(db, poly, -10, wgreennode)
     db.save()
