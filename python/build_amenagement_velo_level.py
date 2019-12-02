@@ -55,6 +55,7 @@ if __name__ == "__main__":
     wrednode = Node('wool:red')
     wgreennode = Node('wool:green')
     wyellownode = Node('wool:yellow')
+    wbluenode = Node('wool:blue')
 
     #reading map info
     print ("reading map")
@@ -124,33 +125,27 @@ if __name__ == "__main__":
         if feature.geometry.type == "LineString":
             poly = []
             for e in feature.geometry.coordinates:
-
-                #print(e)
-                #a = get_cartesian(e[1],e[0])
                 a = utm.from_latlon(e[1],e[0])
                 poly.append( (int(a[0] - cx), int(a[1] - cy)) )
-                #print (a)
 
             #print (poly)
             if prune == 0:
-                minetest_util.polyline_block (db, poly, floor_level+1, wgreennode)
+                minetest_util.draw_polyline_block(db, poly, floor_level + 1, wbluenode, 3)
 
         if feature.geometry.type == "MultiLineString":
             for d in feature.geometry.coordinates:
                 poly = []
                 for e in d:
-                    # print(e)
-                    # a = get_cartesian(e[1],e[0])
                     a = utm.from_latlon(e[1], e[0])
                     poly.append((int(a[0] - cx), int(a[1] - cy)))
-                    # print (a)
 
                 # print (poly)
                 if prune == 0:
-                    minetest_util.polyline_block(db, poly, floor_level + 1, wgreennode)
+                    minetest_util.draw_polyline_block(db, poly, floor_level + 1, wbluenode, 3)
 
-        #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
-        print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
+        if time.time () > start_time:
+            print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
+
         if nbfeature % 250 == 0 and prune == 0:
             db.save ()
 
@@ -158,12 +153,4 @@ if __name__ == "__main__":
     if prune == 0:
         db.save()
 
-
-    print (minx)
-    print (miny)
-    print (maxx)
-    print (maxy)
-    print ("size")
-    print (maxx - minx)
-    print (maxy - miny)
     print("map center in bloc : {0}, {1}".format(cx, cy))

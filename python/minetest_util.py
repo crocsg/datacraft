@@ -37,9 +37,55 @@ def setblock(dbmap: libminetest.map.MapInterface, nodepos: Pos, node: Node):
         print("oops")
         pass
 
+def buildline(x1,y1,x2,y2,thick=1):
+
+    angle = np.arctan2(y2-y1,x2-x1)
+    xx = np.zeros(4)
+    yy = np.zeros(4)
+
+    xx[0] = int(x1 + thick*np.cos(angle+np.pi/2))
+    yy[0] = int(y1 + thick*np.sin(angle+np.pi/2))
+    xx[1] = int(x1 + thick*np.cos(angle-np.pi/2))
+    yy[1] = int(y1 + thick*np.sin(angle-np.pi/2))
+    xx[2] = int(x2 + thick*np.cos(angle-np.pi/2))
+    yy[2] = int(y2 + thick*np.sin(angle-np.pi/2))
+    xx[3] = int(x2 + thick*np.cos(angle+np.pi/2))
+    yy[3] = int(y2 + thick*np.sin(angle+np.pi/2))
+
+    # hack for positive number
+    xx += 200000
+    yy += 200000
+
+    u,v=polygon(xx,yy)
+
+    u -= 200000
+    v -= 200000
+
+    return u,v
+
+def draw_line_block (dbmap: libminetest.map.MapInterface, from_x: object, from_y: object, from_z: object, to_x: object,
+                     to_y: object, node: Node, thick: object = 1) :
+    """
+        Draw a line of bloc in the map beetween (from_x, from_y) and (to_x, to_y) at from_z altitude
+        :param dbmap: libminetest.map.MapInterface to sqlite minetest map
+        :param from_x: from X bloc position
+        :param from_y: from Y bloc position
+        :param from_z: from Z bloc position
+        :param to_x: to X bloc position
+        :param to_y: to Y bloc position
+        :param node: bloc identification to use
+        :param thick: line thickness in bloc number
+    """
+    u,v = buildline(from_x, from_y, to_x, to_y, thick)
+    point = []
+    for idx in range (u):
+        point.append(u[idx], v[idx])
+
+    for pt in point:
+        setblock(dbmap, Pos(pt[0], from_z, pt[1]), node)
 
 def lineblock(dbmap: libminetest.map.MapInterface, from_x: object, from_y: object, from_z: object, to_x: object,
-              to_y: object, to_z: object, node: Node):
+              to_y: object,  node: Node):
     """
     Draw a line of bloc in the map beetween (from_x, from_y) and (to_x, to_y) at from_z altitude
     :param dbmap: libminetest.map.MapInterface to sqlite minetest map
@@ -48,7 +94,6 @@ def lineblock(dbmap: libminetest.map.MapInterface, from_x: object, from_y: objec
     :param from_z: from Z bloc position
     :param to_x: to X bloc position
     :param to_y: to Y bloc position
-    :param to_z: to Z bloc position
     :param node: bloc identification to use
 
     """
@@ -65,7 +110,6 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     rr,cc = polygon (r,c)
     #contour externe
     rre, cce = polygon_perimeter(r, c)
-    #print(poly)
 
     point = []
     for i in range(len(rr)):
@@ -73,9 +117,13 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     for i in range(len(rre)):
         point.append((rre[i]-200000,cce[i]-200000))
 
-    #print (point)
     for pt in point:
         setblock(dbmap, Pos(pt[1], z_pos, pt[0]), node)
+
+
+def draw_polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node, thick=1 ):
+    for idx in range(len(poly) - 1):
+        draw_line_block(dbmap, poly[idx][0], poly[idx][1], z_pos, poly[idx + 1][0], poly[idx + 1][1], node, thick)
 
 def polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node ):
     for idx in range(len(poly) - 1):
