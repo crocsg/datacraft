@@ -117,14 +117,12 @@ if __name__ == "__main__":
         if feature.geometry.type is None:
             continue
         if feature.geometry.type == 'Null':
-
-
             continue
 
         nbfeature = nbfeature + 1
 
-        if (nbfeature > 10):
-            break
+        #if (nbfeature > 10):
+        #   break
 
         for c in feature.geometry.coordinates:
             poly = []
@@ -134,10 +132,6 @@ if __name__ == "__main__":
                 a = utm.from_latlon(e[1],e[0])
                 poly.append( (int(a[0] - cx), int(a[1] - cy)) )
                 #print (a)
-                minx = min(minx, int(a[0]) - cx)
-                miny = min (miny, int(a[1]) - cy)
-                maxx = max (maxx, int(a[0]) - cx)
-                maxy = max (maxy, int(a[1]) - cy)
 
             #print (poly)
             if prune == 0:
