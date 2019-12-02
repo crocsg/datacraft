@@ -117,36 +117,42 @@ if __name__ == "__main__":
         if feature.geometry.type is None:
             continue
         if feature.geometry.type == 'Null':
-
-
             continue
-
+        print (feature.geometry.type)
         nbfeature = nbfeature + 1
 
-        if (nbfeature > 10):
-            break
-
-        for c in feature.geometry.coordinates:
+        if feature.geometry.type == "LineString":
             poly = []
-            for e in c:
+            for e in feature.geometry.coordinates:
+
                 #print(e)
                 #a = get_cartesian(e[1],e[0])
                 a = utm.from_latlon(e[1],e[0])
                 poly.append( (int(a[0] - cx), int(a[1] - cy)) )
                 #print (a)
-                minx = min(minx, int(a[0]) - cx)
-                miny = min (miny, int(a[1]) - cy)
-                maxx = max (maxx, int(a[0]) - cx)
-                maxy = max (maxy, int(a[1]) - cy)
 
             #print (poly)
             if prune == 0:
                 minetest_util.polyline_block (db, poly, floor_level+1, wgreennode)
 
-            #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
-            print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
-            if nbfeature % 250 == 0 and prune == 0:
-                db.save ()
+        if feature.geometry.type == "MultiLineString":
+            for d in feature.geometry.coordinates:
+                poly = []
+                for e in d:
+                    # print(e)
+                    # a = get_cartesian(e[1],e[0])
+                    a = utm.from_latlon(e[1], e[0])
+                    poly.append((int(a[0] - cx), int(a[1] - cy)))
+                    # print (a)
+
+                # print (poly)
+                if prune == 0:
+                    minetest_util.polyline_block(db, poly, floor_level + 1, wgreennode)
+
+        #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
+        print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
+        if nbfeature % 250 == 0 and prune == 0:
+            db.save ()
 
 
     if prune == 0:
