@@ -77,6 +77,10 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     for pt in point:
         setblock(dbmap, Pos(pt[1], z_pos, pt[0]), node)
 
+def polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node ):
+    for idx in range(len(poly) - 1):
+        lineblock(dbmap, poly[idx][0], poly[idx][1], z_pos, poly[idx + 1][0], poly[idx + 1][1], z_pos, node)
+
 def mark_totem(dbmap, posx, posy, posz, width, height, rate, node, nodeempty):
     for y in range(posy, posy + height + 1):
         for x in range(posx - width, posx + width):
@@ -96,6 +100,9 @@ wrednode = Node('wool:red')
 glassnode = Node('default:glass')
 sandnode = Node('default:sandstone')
 airnode = Node ('air')
+
+# mercator coordinates for center map reference
+map_center = (597691, 5329773)
 
 if '__main__' == __name__:
     mapfile = r"minetestutil_map.sqlite"
