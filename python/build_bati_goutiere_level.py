@@ -54,6 +54,7 @@ if __name__ == "__main__":
     claynode = Node ("default:clay")
     wrednode = Node('wool:red')
     wgreennode = Node('wool:green')
+    wyellownode = Node('wool:yellow')
 
     #reading map info
     print ("reading map")
@@ -155,7 +156,7 @@ if __name__ == "__main__":
                             for idx in range (len(poly) - 1):
                                 minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], alt, claynode)
                         else:
-                            minetest_util.polygon_filled_block(db, poly, alt, wgreennode)
+                            minetest_util.polygon_filled_block(db, poly, alt, wyellownode)
 
                 #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
                 print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
