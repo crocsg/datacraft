@@ -1,3 +1,9 @@
 
 python/.idea/workspace.xml
 python/minetestutil_map.sqlite
+*.pyc
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/datacraft.iml
+.idea/inspectionProfiles/profiles_settings.xml
