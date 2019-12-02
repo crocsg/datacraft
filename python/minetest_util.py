@@ -139,12 +139,12 @@ def draw_polyline_block2 (dbmap: libminetest.map.MapInterface, poly: object, z_p
     point = right + left
     point.append (right[0])
 
+    print (point)
+    x = np.array ([p[0] + 200000 for p in point])
+    y = np.array ([p[1] + 200000 for p in point])
 
-    x = np.array (p[0] + 200000 for p in point)
-    y = np.array (p[1] + 200000 for p in point)
-
-    xx,yy = polygon(x,y)
-    xxe,yye = polygon_perimeter(x,y)
+    yy,xx = polygon(y,x)
+    yye,xxe = polygon_perimeter(y,x)
 
     polypoint = []
     for i in range(len(xx)):
