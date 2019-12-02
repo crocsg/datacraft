@@ -66,14 +66,6 @@ def polygon_filled_block (dbmap: libminetest.map.MapInterface, poly: object, z_p
     #contour externe
     rre, cce = polygon_perimeter(r, c)
     #print(poly)
-    if len(rr) == 0:
-        if (np.amin(r) == np.amax (r) or np.amin(c) == np.amax(c)):
-            print ("empty contour")
-        else:
-            print (poly)
-            print (rr)
-            print (cc)
-            exit (0)
 
     point = []
     for i in range(len(rr)):
