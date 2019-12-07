@@ -42,16 +42,16 @@ def buildline(x1,y1,x2,y2,thick=1):
     angle = np.arctan2(y2-y1,x2-x1)
     xx = np.zeros(4)
     yy = np.zeros(4)
+    rayon = int(thick/2)
+    xx[0] = int(x1 + rayon*np.cos(angle+np.pi/2))
+    yy[0] = int(y1 + rayon*np.sin(angle+np.pi/2))
+    xx[1] = int(x1 + rayon*np.cos(angle-np.pi/2))
+    yy[1] = int(y1 + rayon*np.sin(angle-np.pi/2))
 
-    xx[0] = int(x1 + thick*np.cos(angle+np.pi/2))
-    yy[0] = int(y1 + thick*np.sin(angle+np.pi/2))
-    xx[1] = int(x1 + thick*np.cos(angle-np.pi/2))
-    yy[1] = int(y1 + thick*np.sin(angle-np.pi/2))
-
-    xx[2] = int(x2 + thick*np.cos(angle-np.pi/2))
-    yy[2] = int(y2 + thick*np.sin(angle-np.pi/2))
-    xx[3] = int(x2 + thick*np.cos(angle+np.pi/2))
-    yy[3] = int(y2 + thick*np.sin(angle+np.pi/2))
+    xx[2] = int(x2 + rayon*np.cos(angle-np.pi/2))
+    yy[2] = int(y2 + rayon*np.sin(angle-np.pi/2))
+    xx[3] = int(x2 + rayon*np.cos(angle+np.pi/2))
+    yy[3] = int(y2 + rayon*np.sin(angle+np.pi/2))
 
     # hack for positive number
     xx += 200000
@@ -129,12 +129,13 @@ def draw_polyline_block (dbmap: libminetest.map.MapInterface, poly: object, z_po
 def draw_polyline_block2 (dbmap: libminetest.map.MapInterface, poly: object, z_pos: object, node: Node, thick=1 ):
     right = []
     left = []
+    rayon = int(thick/2)
     for idx in range(len(poly) - 1):
         angle = np.arctan2(poly[idx + 1][1] - poly[idx][1], poly[idx+1][0] - poly[idx][0])
-        right.append ( (int(poly[idx][0] + thick * np.cos(angle + np.pi / 2)), int(poly[idx][1] + thick * np.sin(angle + np.pi / 2))) )
-        right.append((int(poly[idx + 1][0] + thick * np.cos(angle + np.pi / 2)), int(poly[idx + 1][1] + thick * np.sin(angle + np.pi / 2))))
-        left.append ( (int(poly[idx][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx][1] + thick * np.sin(angle - np.pi / 2))) )
-        left.append ( (int(poly[idx+1][0] + thick * np.cos(angle - np.pi / 2)), int(poly[idx+1][1] + thick * np.sin(angle - np.pi / 2))) )
+        right.append ( (int(poly[idx][0] + rayon * np.cos(angle + np.pi / 2)), int(poly[idx][1] + rayon * np.sin(angle + np.pi / 2))) )
+        right.append((int(poly[idx + 1][0] + rayon * np.cos(angle + np.pi / 2)), int(poly[idx + 1][1] + rayon * np.sin(angle + np.pi / 2))))
+        left.append ( (int(poly[idx][0] + rayon * np.cos(angle - np.pi / 2)), int(poly[idx][1] + rayon * np.sin(angle - np.pi / 2))) )
+        left.append ( (int(poly[idx+1][0] + rayon * np.cos(angle - np.pi / 2)), int(poly[idx+1][1] + rayon * np.sin(angle - np.pi / 2))) )
     left.reverse ()
     point = right + left
     point.append (right[0])
