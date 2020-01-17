@@ -11,8 +11,10 @@
 import libminetest.map
 
 import libminetest.utils
+
 from libminetest.nodes import Node
 from libminetest.utils import Pos
+
 
 if __name__ == "__main__":
 

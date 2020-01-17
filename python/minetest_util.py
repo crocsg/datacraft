@@ -17,6 +17,25 @@ from libminetest.utils import Pos
 from bresenham import bresenham
 from skimage.draw import polygon, polygon_perimeter
 
+def getblock(dbmap: libminetest.map.MapInterface, nodepos: Pos):
+    """
+    Set a node at nodepos position (minetest coord)
+    :param dbmap: libminetest.map.MapInterface to sqlite minetest map
+    :param nodepos: position
+    :param node: node
+    :return:
+    """
+    mapblock = libminetest.utils.determineMapBlock(nodepos)
+    mapblockpos = libminetest.utils.getMapBlockPos(mapblock)
+    bexist = dbmap.check_for_pos(mapblockpos)
+    if not bexist:
+        return None
+    try:
+        node = dbmap.get_node(nodepos)
+    except libminetest.errors.IgnoreContentReplacementError:
+        print("oops")
+        pass
+    return node
 
 def setblock(dbmap: libminetest.map.MapInterface, nodepos: Pos, node: Node):
     """

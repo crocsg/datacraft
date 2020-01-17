@@ -1,0 +1,14 @@
+--
+-- place definition
+--
+_gvisite_place = {
+	HFR={986, 30, -2900,comment="Henri Fréville"}, 
+	JFK={1985, 30, 750, comment="Kennedy"}, 
+	PRE={3490, 30, 17.0, comment="Preales"},
+	VU={-1283, 30, 852, comment="Villejean Université"},
+	POT={3301, 30, -2965, comment="Poterie"},
+	CITY={0, -990, 0, comment="Ville"},
+	DECHET={0,10010,0, comment="Décheterie"}, 
+	HOME ={0,20,0, comment="Au centre de la map"}
+}
+
