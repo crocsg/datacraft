@@ -66,10 +66,10 @@ if __name__ == "__main__":
     endbox = utm.from_latlon(testfile.bbox[3], testfile.bbox[2])
     print ("Mercator map bounding box : {0},{1}".format (startbox, endbox))
 
-    centerbox = (startbox[0] + endbox[0]) / 2
-    centerboy = (startbox[1] + endbox[1]) / 2
+    centerbox = (startbox[0] * 10 + endbox[0] * 10) / 2
+    centerboy = (startbox[1] * 10 + endbox[1] * 10) / 2
 
-    print ("size =" + str(endbox[0] - startbox[0]) + " " + str(endbox[1] - startbox[1]))
+    print ("size =" + str(endbox[0] *10.0 - startbox[0] *10.0) + " " + str(endbox[1] * 10.0 - startbox[1] * 10.0))
 
     cx = int(centerbox)
     cy = int (centerboy)
@@ -92,8 +92,8 @@ if __name__ == "__main__":
         print ("building floor...")
 
         chunk = 32
-        for zg in range (int(startbox[1]), int(endbox[1]), chunk):
-            for xg in range (int(startbox[0]), int(endbox[0]), chunk):
+        for zg in range (int(startbox[1] * 10.0 ), int(endbox[1] * 10.0), chunk):
+            for xg in range (int(startbox[0] * 10.0), int(endbox[0] * 10.0), chunk):
                 for z in range(zg,zg+chunk):
                     for x in range (xg, xg+chunk):
                         if prune == 0:
@@ -140,7 +140,7 @@ if __name__ == "__main__":
                     #print(e)
                     #a = get_cartesian(e[1],e[0])
                     a = utm.from_latlon(e[1],e[0])
-                    poly.append( (int(a[0] - cx), int(a[1] - cy)) )
+                    poly.append( (int((a[0] * 10) - cx), int((a[1] *10) - cy)) )
                     #print (a)
                     minx = min(minx, int(a[0]) - cx)
                     miny = min (miny, int(a[1]) - cy)
