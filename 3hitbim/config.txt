@@ -1,0 +1,9 @@
+--
+-- categories definition
+--
+threehitbim.categories = {
+	{name="bilan carbone", 				bloc={["default:dirt_with_snow"]=5													}	}, 
+	{name="performance energetique", 	bloc={["default:blueberry_bush_leaves_with_berries"]=2, ["default:pine_tree"]=1		}	}, 
+	{name="bloc qui fait rire", 		bloc={["default:snow"]=6															} 	} 
+}
+ 
