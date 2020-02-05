@@ -122,8 +122,9 @@ if __name__ == "__main__":
             hfaitage = 1
             continue
         else:
-            hfaitage = math.ceil(feature.properties['h_faitage'])
-            print ('h faitage : {0}'.format(hfaitage))
+            hfaitage = math.ceil(float(feature.properties['h_faitage']))
+            hfaitage = hfaitage * 10
+			print ('h faitage : {0}'.format(hfaitage))
 
 
         nbfeature = nbfeature + 1
