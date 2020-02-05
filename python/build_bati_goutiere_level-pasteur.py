@@ -35,7 +35,7 @@ if __name__ == "__main__":
     print(len(sys.argv))
 
     if len(sys.argv) < 7:
-        print("usage build_bati_goutiere_level <map path> <geojson path> floor_level[-30000,30000] floor [0/1] prune[0/1] fill[0/1]")
+        print("usage build_bati_goutiere_level-pasteur <map path> <geojson path> floor_level[-30000,30000] floor [0/1] prune[0/1] fill[0/1]")
         exit()
 
     mappath = sys.argv[1]
@@ -156,7 +156,10 @@ if __name__ == "__main__":
                             for idx in range (len(poly) - 1):
                                 minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], alt, claynode)
                         else:
-                            minetest_util.polygon_filled_block(db, poly, alt, wyellownode)
+							if alt < floor_level + 1 + hfaitage:
+								minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], alt, claynode)
+							else:	
+								minetest_util.polygon_filled_block(db, poly, alt, claynode)
 
                 #print ("done " + str(time.time() - start_time) + " sec | "+ str(nbfeature) + " feature | " + str (nbfeature / (time.time() - start_time) ) + " feature / sec  | "+ str(nbfeature * 100.0 / len(testfile)) + " % ")
                 print ("{0} sec | feature {1} / {2} | {3} features / sec | polygon {5} | {4} % done".format (int(time.time() - start_time), nbfeature, total_feature, nbfeature / (time.time() - start_time), nbfeature * 100.0 / total_feature, len(poly)))
