@@ -155,11 +155,11 @@ if __name__ == "__main__":
                     for alt in range (floor_level + 1, floor_level + 1 + hfaitage + 1):
                         if fill == 0:
                             for idx in range (len(poly) - 1):
-                                minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], alt, claynode)
+                                minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], claynode)
                         else:
                             if alt < floor_level + 1 + hfaitage:
                                 for idx in range (len(poly) - 1):
-                                      minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], alt, claynode)
+                                      minetest_util.lineblock(db, poly[idx][0], poly[idx][1], alt, poly[idx+1][0], poly[idx+1][1], claynode)
                             else:
                                 minetest_util.polygon_filled_block(db, poly, alt, claynode)
 
